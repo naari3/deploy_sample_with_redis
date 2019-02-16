@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rails-pod
+spec:
+  containers:
+    - image: naari3/sample_with_redis
+      name: rails
+      env:
+        - name: SECRET_KEY_BASE
+          value: 96000ccf494084bd30f10cbf45029045d6b02c9a65192448cdfbb35ea0454b4a8fe73d3aeae4c43958f731867fc88f125d16d2d82bed65d5f9f6e4cb6ef3d416
+      livenessProbe:
+        httpGet:
+          path: /
+          port: 3000
+        initialDelaySeconds: 1
+        periodSeconds: 10
+        failureThreshold: 3
+      ports:
+        - containerPort: 3000
+          name: rails
