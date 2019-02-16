@@ -16,10 +16,10 @@ spec:
       labels:
         app: rails
       annotations:
-        kubernetes.io/change-cause: "Update app to 0.0.3"
+        kubernetes.io/change-cause: "Update app to 0.0.5"
     spec:
       containers:
-        - image: naari3/sample_with_redis:0.0.3
+        - image: naari3/sample_with_redis:0.0.5
           name: rails
           command: ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
           env:
