@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: rails
+  name: web
 spec:
   type: LoadBalancer
   selector:
-    app: rails
+    app: web
   ports:
-  - name: rails
+  - name: http
     port: 3000
     targetPort: 80
 

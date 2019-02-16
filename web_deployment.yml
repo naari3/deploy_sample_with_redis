@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rails
+  name: web
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: rails
+      app: web
   strategy:
     rollingUpdate:
       maxSurge: 50%
@@ -14,7 +14,7 @@ spec:
   template:
     metadata:
       labels:
-        app: rails
+        app: web
       annotations:
         kubernetes.io/change-cause: "Update app to 0.0.7"
     spec:
