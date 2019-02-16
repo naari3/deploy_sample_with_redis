@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rails
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rails
+  strategy:
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 0%
+  template:
+    metadata:
+      labels:
+        app: rails
+      annotations:
+        kubernetes.io/change-cause: "Update app to 0.0.3"
+    spec:
+      containers:
+        - image: naari3/sample_with_redis:0.0.3
+          name: rails
+          command: ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
+          env:
+            - name: SECRET_KEY_BASE
+              value: 96000ccf494084bd30f10cbf45029045d6b02c9a65192448cdfbb35ea0454b4a8fe73d3aeae4c43958f731867fc88f125d16d2d82bed65d5f9f6e4cb6ef3d416
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 1
+            periodSeconds: 10
+            failureThreshold: 3
+          ports:
+            - containerPort: 3000
+              name: rails
+
